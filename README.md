@@ -47,4 +47,5 @@
       { "latitude": 32.9378204345703, "longitude": -117.230278015137 }, 
       { "latitude": 32.9378204345703, "longitude": -117.230239868164 }]
 
-### DELETE : localhost:3000/traces/1
+### DELETE : 
+      localhost:3000/traces/1
