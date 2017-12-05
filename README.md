@@ -4,7 +4,7 @@
 
    ```
    $ git clone git@github.com:anupamc/persist_traces.git
-   $ cd rails-api-example
+   $ cd persist_traces
    ```
 
 2. Install dependencies
@@ -16,7 +16,7 @@
 3. Watch the specs pass
 
    ```
-   $ bundle exec rspec
+   $ rspec spec
    ... 0 failures
 
 4. Starting the web server
@@ -36,12 +36,12 @@
 		{ "latitude": 32.9378204345703, "longitude": -117.230278015137 }, 
 		{ "latitude": 32.9378204345703, "longitude": -117.230239868164 }]
 
-	GET : localhost:3000/traces/1
+	 GET : localhost:3000/traces/1
 
-	PUT : localhost:3000/traces/1
+	 PUT : localhost:3000/traces/1
    
-	Body:
+	 Body:
 
    { "latitude": 32.9377784729004, "longitude": -57.230392456055 }
 
-  DELETE : localhost:3000/traces/1
+   DELETE : localhost:3000/traces/1
