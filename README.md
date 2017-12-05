@@ -27,24 +27,24 @@
 
 ## To perform CRUD on the restful resource "trace" in postman
 	
-   #POST: 
+   # POST: 
    		localhost:3000/traces
 
-   #Body:
+   # POST Body:
 
    [{ "latitude": 32.9377784729004, "longitude": -117.230392456055 }, 
 		{ "latitude": 32.937801361084, "longitude": -117.230323791504 }, 
 		{ "latitude": 32.9378204345703, "longitude": -117.230278015137 }, 
 		{ "latitude": 32.9378204345703, "longitude": -117.230239868164 }]
 
-	 #GET: 
+	 # GET: 
 	 		localhost:3000/traces/1
 
-	 #PUT: 
+	 # PUT: 
 	 		localhost:3000/traces/1
    
-	 #Body:
+	 # PUT Body:
 
    { "latitude": 32.9377784729004, "longitude": -57.230392456055 }
 
-   #DELETE: localhost:3000/traces/1
+   # DELETE: localhost:3000/traces/1
