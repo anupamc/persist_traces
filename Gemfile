@@ -38,6 +38,7 @@ group :development do
   gem 'rspec-rails', '~> 3.5'
   gem 'active_model_serializers'
   gem 'dalli', '~> 2.7.4'
+  gem 'haversine'
 end
 
 group :test do

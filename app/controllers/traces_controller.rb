@@ -1,3 +1,5 @@
+require 'haversine'
+
 class TracesController < ApplicationController
 	before_action :set_trace, only: [:show, :update, :destroy]
 
@@ -30,6 +32,21 @@ class TracesController < ApplicationController
   	else
   		json_response(@trace, 404)
   	end
+  end
+
+  # GET /traces/show_all
+  def show_all
+  	@trace_all = Trace.all
+  	@merged_traces = []
+  	@merged_traces << {"latitude" => @trace_all.first.latitude, "longitude" => @trace_all.first.longitude, "distance" => 0}
+  	@trace_all.each_with_index do |trace, index|
+  		break if index.eql?(@trace_all.count - 1)
+  		trace_distance = Haversine.distance(@trace_all[index].latitude, @trace_all[index].longitude, 
+  											@trace_all[index+1].latitude, @trace_all[index+1].longitude).to_miles
+  		morphed_trace = @trace_all[index+1].attributes.merge!("distance" => @merged_traces[index]['distance'] + trace_distance)
+  		@merged_traces << {"latitude" => morphed_trace['latitude'], "longitude" => morphed_trace['longitude'], "distance" => morphed_trace['distance']}
+  	end
+  	json_response(@merged_traces, 200)
   end
 
   # PUT /traces/:id

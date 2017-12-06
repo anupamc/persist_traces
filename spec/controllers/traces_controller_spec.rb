@@ -33,6 +33,31 @@ RSpec.describe 'Trace API', type: :request do
 	    end
 	  end
 
+
+  # Test suite for GET /traces/show_all
+    describe 'GET /traces/show_all' do
+      before { get "/traces/show_all" }
+
+      context 'when returns all the records' do
+        it 'returns the all the traces' do
+          expect(json).not_to be_empty
+          expect(json['traces'].size).to eq(trace.size)
+          
+        end
+
+        it 'shows the distances between two traces' do
+          expect(json['traces'][0]['distance']).to eq 0
+          trace_distance = Haversine.distance(trace[0].latitude, trace[0].longitude, 
+                        trace[1].latitude, trace[1].longitude).to_miles
+          expect(json['traces'][1]['distance']).to eq(json['traces'][0]['distance'] + trace_distance)
+        end
+
+        it 'returns status code 200' do
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
+
   # Test suite for POST /traces
     describe 'POST /traces' do
       # valid payload

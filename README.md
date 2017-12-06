@@ -3,7 +3,7 @@
 1. Clone the repo
 
    ```
-   $ git clone git@github.com:anupamc/persist_traces.git
+   $ git clone https://github.com/anupamc/persist_traces.git
    $ cd persist_traces
    ```
 
@@ -29,6 +29,9 @@
 	
 ### GET : 
       localhost:3000/traces/1
+
+### GET : 
+      localhost:3000/traces/show_all
 
 ### PUT : 
       localhost:3000/traces/1

@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-	resources :traces
+	resources :traces do
+		get 'show_all', on: :collection
+	end
 end
