@@ -39,6 +39,7 @@ group :development do
   gem 'active_model_serializers'
   gem 'dalli', '~> 2.7.4'
   gem 'haversine'
+  gem 'rest-client'
 end
 
 group :test do
