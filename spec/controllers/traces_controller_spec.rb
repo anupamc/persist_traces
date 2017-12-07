@@ -4,6 +4,7 @@ RSpec.describe 'Trace API', type: :request do
 	# initialize test data
 	let!(:trace) { create_list(:trace, 10) }
 	let(:trace_id) { trace.first.id }
+  
 
 	# Test suite for GET /traces/:id
 	  describe 'GET /traces/:id' do
@@ -12,8 +13,14 @@ RSpec.describe 'Trace API', type: :request do
 	    context 'when the record exists' do
 	      it 'returns the trace' do
 	        expect(json).not_to be_empty
-	        expect(json['traces']['id']).to eq(trace_id)
+	        expect(json['traces']['elevation']).not_to be_empty
 	      end
+
+        it 'returns the corresponding elevation' do
+          url = "https://codingcontest.runtastic.com/api/elevations/#{trace[0].latitude}/#{trace[0].longitude}"
+          response = RestClient.get url
+          expect(json['traces']['elevation']).to eq(response.body)
+        end
 
 	      it 'returns status code 200' do
 	        expect(response).to have_http_status(200)
@@ -42,7 +49,6 @@ RSpec.describe 'Trace API', type: :request do
         it 'returns the all the traces' do
           expect(json).not_to be_empty
           expect(json['traces'].size).to eq(trace.size)
-          
         end
 
         it 'shows the distances between two traces' do
@@ -50,6 +56,16 @@ RSpec.describe 'Trace API', type: :request do
           trace_distance = Haversine.distance(trace[0].latitude, trace[0].longitude, 
                         trace[1].latitude, trace[1].longitude).to_miles
           expect(json['traces'][1]['distance']).to eq(json['traces'][0]['distance'] + trace_distance)
+        end
+
+        it 'retruns the traces along with their elevations' do
+          api_array = []
+          trace.each do |trace|
+            api_array << {"latitude" => trace.latitude, "longitude" => trace.longitude}
+          end
+          url = 'https://codingcontest.runtastic.com/api/elevations/bulk'
+          response = JSON.parse(RestClient.post url, api_array.to_json, {content_type: :json, accept: :json})
+          expect(json['traces'][0]['elevation']).to eq(response[0])
         end
 
         it 'returns status code 200' do
